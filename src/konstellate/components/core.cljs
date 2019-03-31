@@ -1,6 +1,6 @@
 (ns konstellate.components.core
   (:require
-    recurrent.drivers.dom
+    recurrent.drivers.rum
     [clojure.pprint :as pprint]
     [clojure.set :as sets]
     [clojure.string :as string]
@@ -37,4 +37,37 @@
                            [:label (:label props)]
                            [:input {:type "text" :value value}]])
                         (ulmus/distinct (ulmus/start-with! "" value-$)))}))
+
+(recurrent/defcomponent Select
+  [props sources]
+  (let [value-$ (ulmus/map
+                  (fn [e]
+                    (.-value (.-target e)))
+                  ((:recurrent/dom-$ sources) "input" "change"))]
+    {:value-$ value-$
+     :recurrent/dom-$ (ulmus/map
+                        (fn [[value label options]]
+                          [:div {:class "select"}
+                           [:label {} label]
+                           [:select {}
+                            (map (fn [opt]
+                                   [:option {:value (:value opt)}
+                                    (or (:label opt) (:value opt))])
+                                 options)]])
+                        (ulmus/zip
+                          value-$
+                          (:label-$ sources)
+                          (:options-$ sources)))}))
+
+
+(recurrent/defcomponent Modal
+  [props sources]
+  {:recurrent/dom-$ (ulmus/map
+                      (fn [dom]
+                        [:div {:class "modal-underlay"}
+                         [:div {:class "modal"}
+                          [:h1 {}
+                           (:title props)]
+                          dom]])
+                      (:dom-$ sources))})
 

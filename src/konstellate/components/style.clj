@@ -9,6 +9,10 @@
 (def text "#212b35")
 (def grey "#dfe3e8")
 
+(defkeyframes ModalFadeIn
+  [:from {:opacity 0}]
+  [:to {:opacity 1}])
+
 (def ActionButton
   [:.action-button {:background secondary
                     :bottom "16px"
@@ -38,7 +42,7 @@
    [:&.outline {:color text
                 :border (str "1px solid " grey)
                 :background "none"}]
-   [:&.primary {:background "black"
+   [:&.primary {:background "#00a2ff"
                 :border "1px solid transparent"
                 :color "white"}]
    [:&.inverse {:background "white"
@@ -69,12 +73,59 @@
             :padding "0 16px"
             :width "100%"}]])
 
+(def Select
+  [:.select {}
+   [:label {:color "#212b35"
+            :display "block"
+            :font-size "12px"
+            :font-weight "bold"
+            :letter-spacing "2px"
+            :margin-bottom "4px"
+            :opacity "0.5"
+            :text-transform "uppercase"}]
+    [:select {:appearance "none"
+              :background "white"
+              :border "1px solid lightgrey"
+              :border-radius "4px"
+              :font-size "16px"
+              :padding "0 16px"
+              :height "56px"
+              :width "100%"
+              :outline "none"
+              :user-select "none"
+              :-webkit-appearance "none"}]])
+
+(def Modal
+  [:.modal-underlay
+   {:position "absolute"
+    :background "rgba(23, 13, 15, 0.8)"
+    :left 0
+    :top 0
+    :bottom 0
+    :right 0
+    :z-index 1}
+   [:.modal 
+    {:animation "ModalFadeIn 500ms ease"
+     :background "white"
+     :border-radius "4px"
+     :box-shadow "shadow"
+     :position "absolute"
+     :left "50%"
+     :transform "translateX(-50%)"
+     :top "48px"
+     :z-index 2}]])
+
+(def SelectionModal
+  [:.selection-modal
+   [:input {}]])
+
 (defn styles
   []
   (garden/css 
     ActionButton
     Button
     BottomBanner
+    ModalFadeIn
     TextInput))
 
 (defn spit-styles!
