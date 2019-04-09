@@ -40,10 +40,16 @@
 
 (recurrent/defcomponent Select
   [props sources]
-  (let [value-$ (ulmus/map
-                  (fn [e]
-                    (.-value (.-target e)))
-                  ((:recurrent/dom-$ sources) "input" "change"))]
+  (let [value-$ 
+        (ulmus/merge
+          (ulmus/map
+            (fn [opts]
+              (:value (first opts)))
+            (:options-$ sources))
+          (ulmus/map
+            (fn [e]
+              (.-value (.-target e)))
+            ((:recurrent/dom-$ sources) "select" "change")))]
     {:value-$ value-$
      :recurrent/dom-$ (ulmus/map
                         (fn [[value label options]]
@@ -60,7 +66,7 @@
                           (:options-$ sources)))}))
 
 
-(recurrent/defcomponent Modal
+(recurrent/defcomponent-1 {:recurrent/portal true} Modal
   [props sources]
   {:recurrent/dom-$ (ulmus/map
                       (fn [dom]

@@ -81,7 +81,6 @@
             :font-weight "bold"
             :letter-spacing "2px"
             :margin-bottom "4px"
-            :opacity "0.5"
             :text-transform "uppercase"}]
     [:select {:appearance "none"
               :background "white"
@@ -103,7 +102,7 @@
     :top 0
     :bottom 0
     :right 0
-    :z-index 1}
+    :z-index 50}
    [:.modal 
     {:animation "ModalFadeIn 500ms ease"
      :background "white"
@@ -113,7 +112,7 @@
      :left "50%"
      :transform "translateX(-50%)"
      :top "48px"
-     :z-index 2}]])
+     :z-index 100}]])
 
 (def SelectionModal
   [:.selection-modal
