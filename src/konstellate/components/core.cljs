@@ -47,8 +47,11 @@
               (:value (first opts)))
             (:options-$ sources))
           (ulmus/map
-            (fn [e]
-              (.-value (.-target e)))
+            (fn [evt]
+              (some (fn [opt]
+                      (if (= (:label opt) (.-value (.-target evt)))
+                        (:value opt)))
+                    @(:options-$ sources)))
             ((:recurrent/dom-$ sources) "select" "change")))]
     {:value-$ value-$
      :recurrent/dom-$ (ulmus/map
@@ -57,7 +60,7 @@
                            [:label {} label]
                            [:select {}
                             (map (fn [opt]
-                                   [:option {:value (:value opt)}
+                                   [:option {:value (:label opt)}
                                     (or (:label opt) (:value opt))])
                                  options)]])
                         (ulmus/zip
