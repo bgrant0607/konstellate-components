@@ -1,6 +1,6 @@
 (ns konstellate.components.core
   (:require
-    recurrent.drivers.rum
+    recurrent.drivers.dom
     [clojure.pprint :as pprint]
     [clojure.set :as sets]
     [clojure.string :as string]

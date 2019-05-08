@@ -112,7 +112,18 @@
      :left "50%"
      :transform "translateX(-50%)"
      :top "48px"
-     :z-index 100}]])
+     :z-index 100}
+    [:.close {:border "2px solid black"
+              :border-radius "50%"
+              :cursor "pointer"
+              :font-size "18px"
+              :width "32px"
+              :height "32px"
+              :position "absolute"
+              :right "24px"
+              :text-align "center"
+              :line-height "26px"
+              :top "24px"}]]])
 
 (def SelectionModal
   [:.selection-modal
